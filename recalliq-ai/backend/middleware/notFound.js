@@ -1,0 +1,9 @@
+const notFound = (req, res, next) => {
+  res.status(404).json({
+    success: false,
+    error: `Route not found: ${req.method} ${req.originalUrl}`,
+    timestamp: new Date().toISOString(),
+  });
+};
+
+export default notFound;

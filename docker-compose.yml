@@ -1,0 +1,39 @@
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: ./recalliq-ai/backend
+    environment:
+      NODE_ENV: development
+      PORT: 5000
+      MONGODB_URI: mongodb://mongo:27017/recalliq-ai
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      JWT_SECRET: ${JWT_SECRET:-dev_secret_change_me_32_chars_min________}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev_refresh_change_me_32_chars_min_____}
+      FRONTEND_URL: http://localhost:5173
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./recalliq-ai/frontend
+      args:
+        VITE_API_URL: http://localhost:5000/api
+    environment:
+      # For Vite dev you’d run `npm run dev` locally; this container serves a built site.
+      VITE_API_URL: http://localhost:5000/api
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:

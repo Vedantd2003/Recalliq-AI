@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #050508;
+    color: #f0f0ff;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0d0d14;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a40;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7c6aff;
+  }
+
+  ::selection {
+    background: rgba(124, 106, 255, 0.3);
+    color: #f0f0ff;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent text-white font-display font-semibold px-6 py-3 rounded-lg 
+           transition-all duration-200 hover:bg-accent-light hover:shadow-glow 
+           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border border-border text-text-primary font-display font-medium 
+           px-6 py-3 rounded-lg transition-all duration-200 hover:border-accent 
+           hover:bg-accent-glow active:scale-95 disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-text-secondary font-medium px-4 py-2 rounded-lg 
+           transition-all duration-200 hover:text-text-primary hover:bg-muted;
+  }
+
+  .card {
+    @apply bg-card border border-border rounded-xl shadow-card;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-300 hover:border-accent/30 hover:shadow-glow-sm;
+  }
+
+  .input-base {
+    @apply w-full bg-surface border border-border rounded-lg px-4 py-3 text-text-primary 
+           font-body placeholder:text-text-muted focus:outline-none focus:border-accent 
+           focus:ring-1 focus:ring-accent/30 transition-colors duration-200;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium;
+  }
+
+  .badge-risk-low { @apply badge bg-neural-green/10 text-neural-green border border-neural-green/20; }
+  .badge-risk-medium { @apply badge bg-neural-amber/10 text-neural-amber border border-neural-amber/20; }
+  .badge-risk-high { @apply badge bg-neural-red/10 text-neural-red border border-neural-red/20; }
+  .badge-risk-critical { @apply badge bg-neural-magenta/10 text-neural-magenta border border-neural-magenta/20; }
+
+  .badge-explicit { @apply badge bg-accent/10 text-accent-light border border-accent/20; }
+  .badge-implicit { @apply badge bg-neural-amber/10 text-neural-amber border border-neural-amber/20; }
+  .badge-hidden { @apply badge bg-neural-magenta/10 text-neural-magenta border border-neural-magenta/20; }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary font-body 
+           font-medium transition-all duration-200 hover:text-text-primary hover:bg-muted 
+           cursor-pointer;
+  }
+
+  .nav-item-active {
+    @apply nav-item text-text-primary bg-accent-glow border border-accent/20;
+  }
+
+  .section-title {
+    @apply font-display font-bold text-text-primary;
+  }
+
+  .risk-bar {
+    @apply h-1.5 rounded-full overflow-hidden bg-muted;
+  }
+
+  .shimmer-effect {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+}
+
+/* Three.js canvas */
+#neural-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* GSAP timeline styles */
+.timeline-connector {
+  position: absolute;
+  left: 20px;
+  top: 100%;
+  width: 2px;
+  background: linear-gradient(to bottom, #7c6aff, transparent);
+  transform-origin: top;
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+  border-radius: inherit;
+}
