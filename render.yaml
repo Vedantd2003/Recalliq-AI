@@ -3,7 +3,6 @@ services:
     name: recalliq-api
     runtime: node
     rootDir: recalliq-ai/backend
-    plan: free
     buildCommand: npm install
     startCommand: node server.js
     healthCheckPath: /health
@@ -29,7 +28,6 @@ services:
     name: recalliq-frontend
     runtime: static
     rootDir: recalliq-ai/frontend
-    plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
