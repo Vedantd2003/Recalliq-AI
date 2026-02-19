@@ -2,6 +2,7 @@ services:
   - type: web
     name: recalliq-api
     runtime: node
+    region: oregon
     rootDir: recalliq-ai/backend
     buildCommand: npm install
     startCommand: node server.js
@@ -27,6 +28,7 @@ services:
   - type: web
     name: recalliq-frontend
     runtime: static
+    region: oregon
     rootDir: recalliq-ai/frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
