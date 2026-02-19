@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
     default: () => parseInt(process.env.FREE_TIER_CREDITS) || 100,
     min: 0,
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
   refreshToken: {
     type: String,
     select: false,
